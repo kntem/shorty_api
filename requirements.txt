@@ -1,2 +1,5 @@
 flask==1.0.2
-pytest==4.0.1
+flask-swagger-ui
+requests
+pytest==5.2.0
+jsonschema

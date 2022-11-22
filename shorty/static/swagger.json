@@ -1,0 +1,88 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Shorty API",
+        "description": "API description in Markdown.",
+        "version": "1.0.0"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/shortlinks": {
+            "post": {
+                "summary": "Shortens URL",
+                "description": "Shortens url using two shortening url services: bitly and tinyurl",
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Url - Provider",
+                        "type": "object",
+                        "description": "The url to shorten with the provider to use.",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "url"
+                            ],
+                            "properties": {
+                                "url": {
+                                    "type": "string",
+                                    "example": "http://www.longurl.com"
+                                },
+                                "provider": {
+                                    "type": "string",
+                                    "example": "bitly"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                   "200": {
+                        "description": "A shortened link with the original URL",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "url",
+                                "link"
+                            ],
+                            "properties": {
+                                "link": {
+                                    "type": "string",
+                                    "example": "http://www.shorturl.com"
+                                },
+                                "url": {
+                                    "type": "string",
+                                    "example": "http://www.longurl.com"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request - Wrong url"
+                    },
+                    "404": {
+                        "description": "Third party service not found."
+                    },
+                    "405": {
+                        "description": "Method not allowed."
+                    },
+                    "422": {
+                        "description": "The arguments cannot be processed."
+                    },
+                    "500": {
+                        "description": "Internal error in shorty."
+                    }
+                }
+            }
+        }
+    }
+}
